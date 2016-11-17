@@ -2,7 +2,6 @@ package service;
 
 import java.util.List;
 
-import dao.ConnectionFactory;
 import dao.DAOException;
 import dao.DaoFactory;
 import dao.ProdutoDAO;

@@ -18,6 +18,7 @@ import entity.Produto;
 
 public class FaturamentoUtils {
 
+	@SuppressWarnings("unused")
 	private static Faturamento readFaturamentoToXML(NamedNodeMap attributes) {
 		String value = attributes.getNamedItem("Campo").getTextContent();
 		Faturamento faturamento = new Faturamento();

@@ -3,11 +3,6 @@ package entity;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-
 public class UnidadeMedida {
 
 	private Integer id;
