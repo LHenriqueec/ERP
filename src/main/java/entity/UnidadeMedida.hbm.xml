@@ -11,10 +11,5 @@
 		<property name="unidade" column="UNIDADE" type="string"/>
 		<property name="quantidade" column="QUANTIDADE" type="integer"/>
 		
-		<set name="produtos" table="UNIDADE_PRODUTO" inverse="true">
-			<key column="ID_UNIDADE"/>
-			<many-to-many class="Produto" column="ID_PRODUTO"/>
-		</set>
-		
 	</class>
 </hibernate-mapping>

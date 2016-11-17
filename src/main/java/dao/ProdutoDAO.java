@@ -1,5 +1,6 @@
 package dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.HibernateException;
@@ -13,6 +14,15 @@ public class ProdutoDAO extends DAO<Produto> {
 		super(Produto.class);
 	}
 	
+	@Override
+	public Produto load(Serializable id) throws DAOException {
+		try {
+			String hql = "from Produto as p inner join fetch p.unMedida where p.id = " + id;
+			return (Produto) session.createQuery(hql).getResultList().get(0);
+		} finally {
+			session.close();
+		}
+	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Produto> getProdutos() throws DAOException {

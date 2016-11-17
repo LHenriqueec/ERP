@@ -1,17 +1,19 @@
 package entity;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 public class UnidadeMedida {
 
 	private Integer id;
 	private String unidade;
 	private Integer quantidade;
-	private Set<Produto> produtos;
 	
 	public UnidadeMedida() {
-		produtos = new LinkedHashSet<>();
+	}
+	
+	public UnidadeMedida(String unidade, Integer quantidade) {
+		this();
+		this.unidade = unidade;
+		this.quantidade = quantidade;
 	}
 	
 	public Integer getId() {
@@ -26,10 +28,6 @@ public class UnidadeMedida {
 		return quantidade;
 	}
 	
-	public Set<Produto> getProdutos() {
-		return produtos;
-	}
-	
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -40,10 +38,6 @@ public class UnidadeMedida {
 	
 	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
-	}
-	
-	public void setProdutos(Set<Produto> produtos) {
-		this.produtos = produtos;
 	}
 	
 	@Override
