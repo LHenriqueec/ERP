@@ -15,11 +15,11 @@ public class DAO<T> {
 	
 	public DAO(Class<T> clazz) {
 		this.clazz = clazz;
-		session = ConnectionFactory.getSession();
 	}
 	
 	public void salvar(T obj) throws DAOException {
 		try {
+			session = ConnectionFactory.getSession();
 			session.beginTransaction();
 			session.saveOrUpdate(obj);
 			session.getTransaction().commit();
@@ -35,7 +35,7 @@ public class DAO<T> {
 	public T load(Serializable id) throws DAOException {
 		
 		try {
-			
+			session = ConnectionFactory.getSession();
 			return session.load(clazz, id);
 			
 		} catch (HibernateException e) {
@@ -48,7 +48,7 @@ public class DAO<T> {
 	public void delete(T obj) throws DAOException {
 		
 		try {
-			
+			session = ConnectionFactory.getSession();
 			session.beginTransaction();
 			session.delete(obj);
 			session.getTransaction().commit();
@@ -65,7 +65,7 @@ public class DAO<T> {
 	
 	public void update(T obj) throws DAOException {
 		try {
-			
+			session = ConnectionFactory.getSession();
 			session.beginTransaction();
 			session.update(obj);
 			session.getTransaction().commit();
@@ -85,6 +85,7 @@ public class DAO<T> {
 	protected List<?> list(String hql) throws DAOException {
 		
 		try {
+			session = ConnectionFactory.getSession();
 			Query query = session.createQuery(hql);
 			List<?> list =  query.getResultList();
 			return list;
