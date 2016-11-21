@@ -27,6 +27,8 @@ public class DAO<T> {
 		} catch (HibernateException e) {
 			session.getTransaction().rollback();
 			throw new DAOException(e);
+		} finally {
+			session.close();
 		}
 	}
 	
@@ -54,6 +56,9 @@ public class DAO<T> {
 		} catch (HibernateException e) {
 			session.getTransaction().rollback();
 			throw new DAOException(e);
+		
+		} finally {
+			session.close();
 		}
 		
 	}
@@ -69,6 +74,9 @@ public class DAO<T> {
 		} catch (HibernateException e) {
 			session.getTransaction().rollback();
 			throw new DAOException(e);
+		
+		} finally {
+			session.close();
 		}
 	}
 	
