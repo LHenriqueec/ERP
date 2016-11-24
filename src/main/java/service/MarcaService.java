@@ -7,16 +7,16 @@ import entity.Marca;
 
 public class MarcaService {
 
-	private MarcaDAO dao;
+	private MarcaDAO marcaDAO;
 	
 	public MarcaService() {
-		dao = DaoFactory.getInstance().getMarcaDAO();
+		marcaDAO = DaoFactory.getInstance().getMarcaDAO();
 	}
 
 	public void salvar(Marca marca) throws ServiceException {
 		try {
 			
-			dao.salvar(marca);
+			marcaDAO.salvar(marca);
 			
 		} catch (DAOException e) {
 			throw new ServiceException(e);

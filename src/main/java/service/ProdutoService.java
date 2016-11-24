@@ -4,6 +4,8 @@ import java.util.List;
 
 import dao.DAOException;
 import dao.DaoFactory;
+import dao.GrupoDAO;
+import dao.MarcaDAO;
 import dao.ProdutoDAO;
 import entity.Grupo;
 import entity.Marca;
@@ -11,11 +13,15 @@ import entity.Produto;
 
 public class ProdutoService {
 	
-	private ProdutoDAO dao;
+	private ProdutoDAO produtoDAO;
+	private MarcaDAO marcaDAO;
+	private GrupoDAO grupoDAO;
 	private static Produto produto;
 
 	public ProdutoService() {
-		dao = DaoFactory.getInstance().getProdutoDAO();
+		produtoDAO = DaoFactory.getInstance().getProdutoDAO();
+		marcaDAO = DaoFactory.getInstance().getMarcaDAO();
+		grupoDAO = DaoFactory.getInstance().getGrupoDAO();
 		
 		if (produto == null) {
 			produto = new Produto();
@@ -40,7 +46,7 @@ public class ProdutoService {
 	
 	public List<Produto> getProdutos() throws ServiceException {
 		try {
-			return dao.getProdutos();
+			return produtoDAO.getProdutos();
 		} catch (DAOException e) {
 			throw new ServiceException();
 		}
@@ -49,7 +55,7 @@ public class ProdutoService {
 	public List<Marca> getMarcas() throws ServiceException {
 		try {
 			
-			return DaoFactory.getInstance().getMarcaDAO().getMarcas();
+			return marcaDAO.getMarcas();
 			
 		} catch (DAOException e) {
 			throw new ServiceException(e);
@@ -59,7 +65,7 @@ public class ProdutoService {
 	public List<Grupo> getGrupos() throws ServiceException {
 		try {
 			
-			return DaoFactory.getInstance().getGrupoDAO().getGrupos();
+			return grupoDAO.getGrupos();
 		
 		} catch (DAOException e) {
 			throw new ServiceException(e);
@@ -68,7 +74,7 @@ public class ProdutoService {
 	
 	public void salvar(Produto produto) throws ServiceException {
 		try {
-			DaoFactory.getInstance().getProdutoDAO().salvar(produto);
+			produtoDAO.salvar(produto);
 			
 		} catch (DAOException e) {
 			throw new ServiceException(e);
@@ -78,7 +84,7 @@ public class ProdutoService {
 	public void salvarLista(List<Produto> produtos) throws ServiceException {
 		try {
 		
-			dao.salvarLista(produtos);
+			produtoDAO.salvarLista(produtos);
 		
 		} catch (DAOException e) {
 			throw new ServiceException(e);
