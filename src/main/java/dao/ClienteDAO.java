@@ -21,6 +21,7 @@ public class ClienteDAO extends DAO<Cliente> {
 
 	@SuppressWarnings("unchecked")
 	public Cliente getClienteByName(String name) {
+		verifySession();
 		Query<Cliente> query = session.createQuery("FROM Cliente WHERE razao = '" + name + "'");
 		return query.getSingleResult();
 	}

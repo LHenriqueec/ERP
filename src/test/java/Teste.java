@@ -18,11 +18,16 @@ public class Teste {
 	}
 	
 	@Test
+	public void teste() {
+		
+	}
+	
+	@Test
 	public void TesteMuitasSessions() throws DAOException {
 		session = ConnectionFactory.getSession();
 		Produto p = session.load(Produto.class, "123");
 		
-		p.setNome("PRODUTO TESTE");
+		p.setNome("TESTE PRODUTO");
 		
 		if (session == null) {
 			session = ConnectionFactory.getSession();

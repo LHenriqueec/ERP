@@ -13,7 +13,8 @@ public class UnidadeMedidaDAO extends DAO<UnidadeMedida> {
 	}
 
 	public void salvarLista(Set<UnidadeMedida> unidadeMedidas) {
-
+		verifySession();
+		
 		int batch = 5;
 		session.beginTransaction();
 		unidadeMedidas.forEach(um -> {

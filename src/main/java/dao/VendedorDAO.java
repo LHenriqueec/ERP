@@ -13,6 +13,8 @@ public class VendedorDAO extends DAO<Vendedor> {
 	
 	@SuppressWarnings("unchecked")
 	public Vendedor getVendedorByNome(String nome) {
+		verifySession();
+		
 		Query<Vendedor> query = session.createQuery("FROM Vendedor WHERE Nome = '" + nome + "'");
 		return query.getResultList().get(0);
 	}

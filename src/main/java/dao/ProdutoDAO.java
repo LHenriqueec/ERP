@@ -15,7 +15,7 @@ public class ProdutoDAO extends DAO<Produto> {
 
 	@Override
 	public Produto load(Serializable id) throws DAOException {
-		session = ConnectionFactory.getSession();
+		verifySession();
 		String hql = "from Produto as p inner join fetch p.unMedida where p.codigo = " + id;
 		return (Produto) session.createQuery(hql).getResultList().get(0);
 	}
@@ -26,6 +26,7 @@ public class ProdutoDAO extends DAO<Produto> {
 	}
 
 	public void salvarLista(List<Produto> produtos) throws DAOException {
+		verifySession();
 		try {
 
 			int batch = 50;
