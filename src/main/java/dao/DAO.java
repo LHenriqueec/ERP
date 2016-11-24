@@ -19,7 +19,7 @@ public class DAO<T> {
 	
 	public void salvar(T obj) throws DAOException {
 		try {
-			session = ConnectionFactory.getSession();
+			verifySession();
 			session.beginTransaction();
 			session.saveOrUpdate(obj);
 			session.getTransaction().commit();
@@ -35,20 +35,18 @@ public class DAO<T> {
 	public T load(Serializable id) throws DAOException {
 		
 		try {
-			session = ConnectionFactory.getSession();
+			verifySession();
 			return session.load(clazz, id);
 			
 		} catch (HibernateException e) {
 			throw new DAOException(e);
-		} finally {
-			session.close();
 		}
 	}
 	
 	public void delete(T obj) throws DAOException {
 		
 		try {
-			session = ConnectionFactory.getSession();
+			verifySession();
 			session.beginTransaction();
 			session.delete(obj);
 			session.getTransaction().commit();
@@ -65,7 +63,7 @@ public class DAO<T> {
 	
 	public void update(T obj) throws DAOException {
 		try {
-			session = ConnectionFactory.getSession();
+			verifySession();
 			session.beginTransaction();
 			session.update(obj);
 			session.getTransaction().commit();
@@ -85,7 +83,7 @@ public class DAO<T> {
 	protected List<?> list(String hql) throws DAOException {
 		
 		try {
-			session = ConnectionFactory.getSession();
+			verifySession();
 			Query query = session.createQuery(hql);
 			List<?> list =  query.getResultList();
 			return list;
@@ -93,8 +91,12 @@ public class DAO<T> {
 		} catch (HibernateException e) {
 			throw new DAOException(e);
 		
-		} finally {
-			session.close();
+		}
+	}
+	
+	private void verifySession() {
+		if (session == null) {
+			session = ConnectionFactory.getSession();
 		}
 	}
 }

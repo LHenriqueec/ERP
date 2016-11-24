@@ -1,45 +1,36 @@
-import org.junit.BeforeClass;
+
+import org.hibernate.Session;
+import org.junit.Before;
 import org.junit.Test;
 
 import dao.ConnectionFactory;
 import dao.DAOException;
-import dao.DaoFactory;
 import entity.Produto;
 
-public class Teste  {
+
+public class Teste {
 	
-	@BeforeClass
-	public static void init() {
+	private Session session;
+
+	@Before
+	public void init() {
 		ConnectionFactory.initSetup();
 	}
 	
 	@Test
-	public void teste() throws DAOException {
-		Produto p = DaoFactory.getInstance().getProdutoDAO().load("123");
+	public void TesteMuitasSessions() throws DAOException {
+		session = ConnectionFactory.getSession();
+		Produto p = session.load(Produto.class, "123");
 		
-		p.getUnMedida().forEach(System.out::println);
+		p.setNome("PRODUTO TESTE");
 		
-		DaoFactory.getInstance().getProdutoDAO().salvar(p);
+		if (session == null) {
+			session = ConnectionFactory.getSession();
+		}
+		session.beginTransaction();
+		session.saveOrUpdate(p);
+		session.getTransaction().commit();
 		
-		System.out.println(DaoFactory.getInstance().getProdutoDAO().load("123"));
-		
+		System.out.println(p);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
