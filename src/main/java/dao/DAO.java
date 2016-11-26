@@ -39,6 +39,7 @@ public class DAO<T> {
 			return session.load(clazz, id);
 			
 		} catch (HibernateException e) {
+			session.getTransaction().rollback();
 			throw new DAOException(e);
 		}
 	}
@@ -89,6 +90,7 @@ public class DAO<T> {
 			return list;
 			
 		} catch (HibernateException e) {
+			session.getTransaction().rollback();
 			throw new DAOException(e);
 		
 		}
@@ -100,16 +102,3 @@ public class DAO<T> {
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

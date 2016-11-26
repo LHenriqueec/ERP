@@ -16,32 +16,35 @@ public class ProdutoService {
 	private ProdutoDAO produtoDAO;
 	private MarcaDAO marcaDAO;
 	private GrupoDAO grupoDAO;
-	private static Produto produto;
+	private static Produto produtoBinding;
+	private Produto other;
+	private static ProdutoService instance;
 
 	public ProdutoService() {
 		produtoDAO = DaoFactory.getInstance().getProdutoDAO();
 		marcaDAO = DaoFactory.getInstance().getMarcaDAO();
 		grupoDAO = DaoFactory.getInstance().getGrupoDAO();
 		
-		if (produto == null) {
-			produto = new Produto();
+		if (produtoBinding == null) {
+			produtoBinding = new Produto();
 		}
 	}
 	
 	public Produto getProduto() {
-		return produto;
+		return produtoBinding;
 	}
 	
 	public void setProduto(Produto produto) {
-		ProdutoService.produto.setCodigo(produto.getCodigo());
-		ProdutoService.produto.setNome(produto.getNome());
-		ProdutoService.produto.setNcm(produto.getNcm());
-		ProdutoService.produto.setEan(produto.getEan());
-		ProdutoService.produto.setPeso(produto.getPeso());
-		ProdutoService.produto.setCusto(produto.getCusto());
-		ProdutoService.produto.setGrupo(produto.getGrupo());
-		ProdutoService.produto.setMarca(produto.getMarca());
-		ProdutoService.produto.setUnMedida(produto.getUnMedida());
+		other = produto;
+		changeProduto(produtoBinding, other);
+	}
+	
+	public Produto loadByCodigo(String codigo) throws ServiceException {
+		try {
+			return produtoDAO.load(codigo);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
 	}
 	
 	public List<Produto> getProdutos() throws ServiceException {
@@ -89,5 +92,25 @@ public class ProdutoService {
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
+	}
+	
+	public static ProdutoService getService() {
+		if (instance == null) {
+			instance = new ProdutoService();
+		}
+		
+		return instance;
+	}
+	
+	private void changeProduto(Produto oldProduto, Produto newProduto) {
+		oldProduto.setCodigo(newProduto.getCodigo());
+		oldProduto.setCusto(newProduto.getCusto());
+		oldProduto.setEan(newProduto.getEan());
+		oldProduto.setGrupo(newProduto.getGrupo());
+		oldProduto.setMarca(newProduto.getMarca());
+		oldProduto.setNcm(newProduto.getNcm());
+		oldProduto.setNome(newProduto.getNome());
+		oldProduto.setPeso(newProduto.getPeso());
+		oldProduto.setUnMedida(newProduto.getUnMedida());
 	}
 }

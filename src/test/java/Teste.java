@@ -22,7 +22,19 @@ public class Teste {
 	}
 	
 	@Test
+	public void alterar_produto_da_lista_do_DAO_e_salvar_em_Session_deferente() throws DAOException {
+		ProdutoDAO dao = DaoFactory.getInstance().getProdutoDAO(); 
+		Produto produto = dao.getProdutos().get(2);
+		Produto p = new Produto();
+		
+		p.setCodigo(produto.getCodigo());
+		p.setNome(produto.getNome());
+		dao.salvar(p);
+	}
+	
+	@Test
 	public void alterarItemDeListaDoDAO() throws DAOException {
+		
 		ProdutoDAO dao = DaoFactory.getInstance().getProdutoDAO();
 		List<Produto> produtos = dao.getProdutos();
 		
