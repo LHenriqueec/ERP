@@ -3,6 +3,7 @@ package entity;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -58,6 +59,7 @@ public class Produto {
     public Set<UnidadeMedida> getUnMedida() {
     	return unMedida;
     }
+    
     
     public Grupo getGrupo() {
 		return grupo;

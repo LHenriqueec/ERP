@@ -97,7 +97,7 @@ public class DAO<T> {
 	}
 	
 	protected void verifySession() {
-		if (session == null) {
+		if (session == null || !session.isOpen()) {
 			session = ConnectionFactory.getSession();
 		}
 	}

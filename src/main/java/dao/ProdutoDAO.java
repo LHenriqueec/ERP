@@ -14,12 +14,7 @@ public class ProdutoDAO extends DAO<Produto> {
 
 	@SuppressWarnings("unchecked")
 	public List<Produto> getProdutos() throws DAOException {
-		try {
-			return (List<Produto>) list("FROM Produto");
-
-		} finally {
-			session.clear();
-		}
+		return (List<Produto>) list("FROM Produto");
 	}
 
 	public void salvarLista(List<Produto> produtos) throws DAOException {

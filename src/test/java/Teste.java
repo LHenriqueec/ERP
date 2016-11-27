@@ -15,27 +15,25 @@ import entity.Produto;
 public class Teste {
 	
 	private Session session;
-
+	private ProdutoDAO dao;
+	
+	
 	@Before
 	public void init() {
 		ConnectionFactory.initSetup();
+		dao = DaoFactory.getInstance().getProdutoDAO();
 	}
 	
 	@Test
-	public void alterar_produto_da_lista_do_DAO_e_salvar_em_Session_deferente() throws DAOException {
-		ProdutoDAO dao = DaoFactory.getInstance().getProdutoDAO(); 
-		Produto produto = dao.getProdutos().get(2);
-		Produto p = new Produto();
+	public void salvar_duas_vezes_o_mesmo_objeto() throws DAOException {
+		Produto p = dao.load("123");
 		
-		p.setCodigo(produto.getCodigo());
-		p.setNome(produto.getNome());
+		dao.salvar(p);
 		dao.salvar(p);
 	}
 	
 	@Test
 	public void alterarItemDeListaDoDAO() throws DAOException {
-		
-		ProdutoDAO dao = DaoFactory.getInstance().getProdutoDAO();
 		List<Produto> produtos = dao.getProdutos();
 		
 		Produto produto = produtos.get(2);

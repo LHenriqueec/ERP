@@ -113,4 +113,8 @@ public class ProdutoService {
 		oldProduto.setPeso(newProduto.getPeso());
 		oldProduto.setUnMedida(newProduto.getUnMedida());
 	}
+	
+	public void update(Produto produtoUpdate) {
+		changeProduto(other, produtoUpdate);
+	}
 }
